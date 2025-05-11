@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pou name="PRG_HTST_Main" pouType="program">
+  <interface>
+    <inputVars>
+      <variable name="CmdStart">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="CmdStop">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="CmdReset">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="CmdEmergencyStop">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+    </inputVars>
+    <outputVars>
+      <variable name="Status">
+        <type>
+          <derived name="ProcessState_t"/>
+        </type>
+      </variable>
+    </outputVars>
+    <localVars>
+      <variable name="HTST">
+        <type>
+          <derived name="HTST_System_t"/>
+        </type>
+      </variable>
+      <variable name="TempControl">
+        <type>
+          <FB_TemperatureControl/>
+        </type>
+      </variable>
+      <variable name="FlowControl">
+        <type>
+          <FB_FlowControl/>
+        </type>
+      </variable>
+      <variable name="InitialRun">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="TRUE"/>
+        </initialValue>
+      </variable>
+      <variable name="TempSetpoint">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="72.0"/>
+        </initialValue>
+      </variable>
+      <variable name="MinPasteurizationTemp">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="71.5"/>
+        </initialValue>
+      </variable>
+    </localVars>
+  </interface>
+  <body>
+    <ST>
+      <externalText>
+        <file>../st/programs/PRG_HTST_Main.st</file>
+      </externalText>
+    </ST>
+  </body>
+</pou> 

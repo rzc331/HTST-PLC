@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pou name="FB_TemperatureControl" pouType="functionBlock">
+  <interface>
+    <inputVars>
+      <variable name="ActualTemperature">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="SetpointTemperature">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="MinimumOutput">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="MaximumOutput">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="100.0"/>
+        </initialValue>
+      </variable>
+      <variable name="Kp">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="1.0"/>
+        </initialValue>
+      </variable>
+      <variable name="Ki">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.1"/>
+        </initialValue>
+      </variable>
+      <variable name="Kd">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="Enable">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+    </inputVars>
+    <outputVars>
+      <variable name="ControlOutput">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="TemperatureError">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="Status">
+        <type>
+          <INT/>
+        </type>
+        <initialValue>
+          <simpleValue value="0"/>
+        </initialValue>
+      </variable>
+    </outputVars>
+    <localVars>
+      <variable name="ErrorSum">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="PreviousError">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="ErrorDelta">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="CycleTime">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.1"/>
+        </initialValue>
+      </variable>
+      <variable name="Output">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="PreviousCycleTime">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#0ms"/>
+        </initialValue>
+      </variable>
+      <variable name="FirstRun">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="TRUE"/>
+        </initialValue>
+      </variable>
+    </localVars>
+  </interface>
+  <body>
+    <ST>
+      <externalText>
+        <file>../st/function_blocks/FB_TemperatureControl.st</file>
+      </externalText>
+    </ST>
+  </body>
+</pou> 

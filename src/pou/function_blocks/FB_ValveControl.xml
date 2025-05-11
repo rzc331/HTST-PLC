@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pou name="FB_ValveControl" pouType="functionBlock">
+  <interface>
+    <inputVars>
+      <variable name="OpenCommand">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="CloseCommand">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="PercentageCommand">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="FeedbackOpened">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="FeedbackClosed">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="TRUE"/>
+        </initialValue>
+      </variable>
+      <variable name="FeedbackPosition">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="EnableControl">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="UsePercentageControl">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="OpenTimeout">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#5s"/>
+        </initialValue>
+      </variable>
+      <variable name="CloseTimeout">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#5s"/>
+        </initialValue>
+      </variable>
+    </inputVars>
+    <outputVars>
+      <variable name="ValveOpen">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="ValveClose">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="PercentageOutput">
+        <type>
+          <REAL/>
+        </type>
+        <initialValue>
+          <simpleValue value="0.0"/>
+        </initialValue>
+      </variable>
+      <variable name="IsOpen">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="IsClosed">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="TRUE"/>
+        </initialValue>
+      </variable>
+      <variable name="InTransition">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="Fault">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="Status">
+        <type>
+          <INT/>
+        </type>
+        <initialValue>
+          <simpleValue value="0"/>
+        </initialValue>
+      </variable>
+    </outputVars>
+    <localVars>
+      <variable name="OpenTimer">
+        <type>
+          <TON/>
+        </type>
+      </variable>
+      <variable name="CloseTimer">
+        <type>
+          <TON/>
+        </type>
+      </variable>
+      <variable name="TimerIN">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="TimerPT">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#0s"/>
+        </initialValue>
+      </variable>
+      <variable name="TimerQ">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="TimerET">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#0s"/>
+        </initialValue>
+      </variable>
+    </localVars>
+  </interface>
+  <body>
+    <ST>
+      <externalText>
+        <file>../st/function_blocks/FB_ValveControl.st</file>
+      </externalText>
+    </ST>
+  </body>
+</pou> 

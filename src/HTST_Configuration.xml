@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+  <configuration name="HTST_Controller">
+    <resource name="PLC_Logic">
+      <task name="FAST_TASK" priority="1" interval="T#10ms">
+        <pouInstance name="Temperature_Control" type="FB_TemperatureControl"/>
+        <pouInstance name="Valve_Control" type="FB_ValveControl"/>
+        <pouInstance name="Flow_Control" type="FB_FlowControl"/>
+      </task>
+      <task name="MAIN_TASK" priority="2" interval="T#50ms">
+        <pouInstance name="HTST_Main" type="PRG_HTST_Main"/>
+        <pouInstance name="HTST_Alarms" type="PRG_HTST_Alarms"/>
+      </task>
+      <task name="SLOW_TASK" priority="3" interval="T#100ms">
+        <pouInstance name="HTST_CIP" type="PRG_HTST_CIP"/>
+      </task>
+      <globalVars name="Global_Variables">
+        <variable name="g_HMI_Commands">
+          <type>
+            <struct>
+              <variable name="StartSystem">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+              <variable name="StopSystem">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+              <variable name="ResetSystem">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+              <variable name="EmergencyStop">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+              <variable name="StartCIP">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+              <variable name="StopCIP">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+              <variable name="AcknowledgeAlarms">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+            </struct>
+          </type>
+        </variable>
+        <variable name="g_ProcessParameters">
+          <type>
+            <struct>
+              <variable name="PasteurizationTemperature">
+                <type>
+                  <REAL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="72.0"/>
+                </initialValue>
+              </variable>
+              <variable name="MinimumLegalTemp">
+                <type>
+                  <REAL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="71.5"/>
+                </initialValue>
+              </variable>
+              <variable name="TargetFlowRate">
+                <type>
+                  <REAL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="100.0"/>
+                </initialValue>
+              </variable>
+              <variable name="MinimumFlowRate">
+                <type>
+                  <REAL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="10.0"/>
+                </initialValue>
+              </variable>
+              <variable name="HoldingTime">
+                <type>
+                  <REAL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="15.0"/>
+                </initialValue>
+              </variable>
+            </struct>
+          </type>
+        </variable>
+        <variable name="g_IO_Configuration">
+          <type>
+            <struct>
+              <variable name="Inputs">
+                <type>
+                  <struct>
+                    <variable name="RawTankTemp">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="10.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="HeatExchangerInletTemp">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="10.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="HeatExchangerOutletTemp">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="20.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="HoldingTubeEntryTemp">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="20.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="HoldingTubeExitTemp">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="20.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="FlowRate">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="PumpRunningFeedback">
+                      <type>
+                        <BOOL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="EmergencyStopButton">
+                      <type>
+                        <BOOL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE"/>
+                      </initialValue>
+                    </variable>
+                  </struct>
+                </type>
+              </variable>
+              <variable name="Outputs">
+                <type>
+                  <struct>
+                    <variable name="PumpSpeed">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="HotWaterValve">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="FlowDiverterValve">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="CIPSupplyValve">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="CausticValve">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="AcidValve">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="WaterValve">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="DrainValve">
+                      <type>
+                        <REAL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0.0"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="AlarmLight">
+                      <type>
+                        <BOOL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE"/>
+                      </initialValue>
+                    </variable>
+                    <variable name="AlarmSiren">
+                      <type>
+                        <BOOL/>
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE"/>
+                      </initialValue>
+                    </variable>
+                  </struct>
+                </type>
+              </variable>
+            </struct>
+          </type>
+        </variable>
+      </globalVars>
+      <access name="HMI_Access">
+        <source type="any" name="g_HMI_Commands"/>
+        <source type="any" name="g_ProcessParameters"/>
+        <source type="readWrite" name="g_IO_Configuration"/>
+        <target type="readWrite" name="HTST_Main"/>
+        <target type="readWrite" name="HTST_Alarms"/>
+        <target type="readWrite" name="HTST_CIP"/>
+      </access>
+    </resource>
+  </configuration>
+</configurations> 

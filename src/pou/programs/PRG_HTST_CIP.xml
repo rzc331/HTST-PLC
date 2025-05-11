@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pou name="PRG_HTST_CIP" pouType="program">
+  <interface>
+    <inputVars>
+      <variable name="CmdStartCIP">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="CmdStopCIP">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="CmdEmergencyStop">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="HTSTState">
+        <type>
+          <derived name="ProcessState_t"/>
+        </type>
+      </variable>
+    </inputVars>
+    <outputVars>
+      <variable name="CIPActive">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="CIPStep">
+        <type>
+          <INT/>
+        </type>
+        <initialValue>
+          <simpleValue value="0"/>
+        </initialValue>
+      </variable>
+      <variable name="CIPComplete">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+    </outputVars>
+    <localVars>
+      <variable name="CurrentStep">
+        <type>
+          <INT/>
+        </type>
+        <initialValue>
+          <simpleValue value="0"/>
+        </initialValue>
+      </variable>
+      <variable name="StepTimer">
+        <type>
+          <TON/>
+        </type>
+      </variable>
+      <variable name="TimerIN">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="TimerPT">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#0s"/>
+        </initialValue>
+      </variable>
+      <variable name="PreRinseTime">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#5m"/>
+        </initialValue>
+      </variable>
+      <variable name="CausticWashTime">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#15m"/>
+        </initialValue>
+      </variable>
+      <variable name="IntermediateRinseTime">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#5m"/>
+        </initialValue>
+      </variable>
+      <variable name="AcidWashTime">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#10m"/>
+        </initialValue>
+      </variable>
+      <variable name="FinalRinseTime">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#10m"/>
+        </initialValue>
+      </variable>
+      <variable name="SanitizeTime">
+        <type>
+          <TIME/>
+        </type>
+        <initialValue>
+          <simpleValue value="T#5m"/>
+        </initialValue>
+      </variable>
+    </localVars>
+  </interface>
+  <body>
+    <ST>
+      <externalText>
+        <file>../st/programs/PRG_HTST_CIP.st</file>
+      </externalText>
+    </ST>
+  </body>
+</pou> 

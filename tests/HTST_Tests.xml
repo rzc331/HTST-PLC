@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testConfiguration name="HTST_System_Tests">
+  <testSuite name="Temperature_Control_Tests">
+    <testCase name="TC_Temperature_Normal">
+      <description>Test temperature control under normal conditions</description>
+      <steps>
+        <step name="Initialize">
+          <action>
+            <assignment variable="FB_TemperatureControl.ActualTemperature" value="20.0"/>
+            <assignment variable="FB_TemperatureControl.SetpointTemperature" value="72.0"/>
+            <assignment variable="FB_TemperatureControl.MinimumOutput" value="0.0"/>
+            <assignment variable="FB_TemperatureControl.MaximumOutput" value="100.0"/>
+            <assignment variable="FB_TemperatureControl.Kp" value="1.0"/>
+            <assignment variable="FB_TemperatureControl.Ki" value="0.1"/>
+            <assignment variable="FB_TemperatureControl.Kd" value="0.0"/>
+            <assignment variable="FB_TemperatureControl.Enable" value="TRUE"/>
+          </action>
+        </step>
+        <step name="Execute">
+          <action>
+            <call name="FB_TemperatureControl"/>
+          </action>
+        </step>
+        <step name="Verify_Output">
+          <assertion>
+            <comparison operand1="FB_TemperatureControl.ControlOutput" operator=">" operand2="0.0"/>
+          </assertion>
+        </step>
+      </steps>
+    </testCase>
+    <testCase name="TC_Temperature_Disabled">
+      <description>Test temperature control when disabled</description>
+      <steps>
+        <step name="Initialize">
+          <action>
+            <assignment variable="FB_TemperatureControl.ActualTemperature" value="20.0"/>
+            <assignment variable="FB_TemperatureControl.SetpointTemperature" value="72.0"/>
+            <assignment variable="FB_TemperatureControl.Enable" value="FALSE"/>
+          </action>
+        </step>
+        <step name="Execute">
+          <action>
+            <call name="FB_TemperatureControl"/>
+          </action>
+        </step>
+        <step name="Verify_Output">
+          <assertion>
+            <comparison operand1="FB_TemperatureControl.ControlOutput" operator="=" operand2="0.0"/>
+            <comparison operand1="FB_TemperatureControl.Status" operator="=" operand2="0"/>
+          </assertion>
+        </step>
+      </steps>
+    </testCase>
+  </testSuite>
+  
+  <testSuite name="Flow_Control_Tests">
+    <testCase name="TC_Flow_Normal">
+      <description>Test flow control under normal conditions</description>
+      <steps>
+        <step name="Initialize">
+          <action>
+            <assignment variable="FB_FlowControl.ActualFlow" value="0.0"/>
+            <assignment variable="FB_FlowControl.FlowSetpoint" value="100.0"/>
+            <assignment variable="FB_FlowControl.MinPumpSpeed" value="10.0"/>
+            <assignment variable="FB_FlowControl.MaxPumpSpeed" value="100.0"/>
+            <assignment variable="FB_FlowControl.Enable" value="TRUE"/>
+          </action>
+        </step>
+        <step name="Execute">
+          <action>
+            <call name="FB_FlowControl"/>
+          </action>
+        </step>
+        <step name="Verify_Output">
+          <assertion>
+            <comparison operand1="FB_FlowControl.PumpSpeedOutput" operator=">" operand2="10.0"/>
+            <comparison operand1="FB_FlowControl.PumpRunning" operator="=" operand2="TRUE"/>
+          </assertion>
+        </step>
+      </steps>
+    </testCase>
+    <testCase name="TC_Flow_Alarm">
+      <description>Test flow alarm when flow is below minimum</description>
+      <steps>
+        <step name="Initialize">
+          <action>
+            <assignment variable="FB_FlowControl.ActualFlow" value="5.0"/>
+            <assignment variable="FB_FlowControl.FlowSetpoint" value="100.0"/>
+            <assignment variable="FB_FlowControl.MinimumFlow" value="10.0"/>
+            <assignment variable="FB_FlowControl.Enable" value="TRUE"/>
+            <assignment variable="FB_FlowControl.FlowTimeout" value="T#1s"/>
+          </action>
+        </step>
+        <step name="Execute">
+          <action>
+            <call name="FB_FlowControl"/>
+            <waitTime time="T#2s"/>
+            <call name="FB_FlowControl"/>
+          </action>
+        </step>
+        <step name="Verify_Alarm">
+          <assertion>
+            <comparison operand1="FB_FlowControl.FlowAlarm" operator="=" operand2="TRUE"/>
+            <comparison operand1="FB_FlowControl.FlowOK" operator="=" operand2="FALSE"/>
+          </assertion>
+        </step>
+      </steps>
+    </testCase>
+  </testSuite>
+  
+  <testSuite name="HTST_Process_Tests">
+    <testCase name="TC_Process_Startup">
+      <description>Test HTST system startup sequence</description>
+      <steps>
+        <step name="Initialize">
+          <action>
+            <assignment variable="PRG_HTST_Main.HTST.State" value="STATE_IDLE"/>
+            <assignment variable="PRG_HTST_Main.CmdStart" value="FALSE"/>
+            <assignment variable="PRG_HTST_Main.HTST.HoldingTube.EntryTemp.Value" value="20.0"/>
+          </action>
+        </step>
+        <step name="Start_System">
+          <action>
+            <assignment variable="PRG_HTST_Main.CmdStart" value="TRUE"/>
+            <call name="PRG_HTST_Main"/>
+            <assignment variable="PRG_HTST_Main.CmdStart" value="FALSE"/>
+          </action>
+        </step>
+        <step name="Verify_Startup">
+          <assertion>
+            <comparison operand1="PRG_HTST_Main.HTST.State" operator="=" operand2="STATE_STARTUP"/>
+          </assertion>
+        </step>
+      </steps>
+    </testCase>
+    <testCase name="TC_Flow_Diversion">
+      <description>Test flow diversion on low temperature</description>
+      <steps>
+        <step name="Initialize">
+          <action>
+            <assignment variable="PRG_HTST_Main.HTST.State" value="STATE_PRODUCTION"/>
+            <assignment variable="PRG_HTST_Main.HTST.HoldingTube.EntryTemp.Value" value="72.0"/>
+            <assignment variable="PRG_HTST_Main.MinPasteurizationTemp" value="71.5"/>
+            <assignment variable="PRG_HTST_Main.HTST.FlowDiverter.Command" value="0.0"/>
+          </action>
+        </step>
+        <step name="Drop_Temperature">
+          <action>
+            <assignment variable="PRG_HTST_Main.HTST.HoldingTube.EntryTemp.Value" value="71.0"/>
+            <call name="PRG_HTST_Main"/>
+          </action>
+        </step>
+        <step name="Verify_Diversion">
+          <assertion>
+            <comparison operand1="PRG_HTST_Main.HTST.FlowDiverter.Command" operator="=" operand2="100.0"/>
+            <comparison operand1="PRG_HTST_Main.HTST.Alarms.LowTemp" operator="=" operand2="TRUE"/>
+          </assertion>
+        </step>
+        <step name="Restore_Temperature">
+          <action>
+            <assignment variable="PRG_HTST_Main.HTST.HoldingTube.EntryTemp.Value" value="72.0"/>
+            <call name="PRG_HTST_Main"/>
+          </action>
+        </step>
+        <step name="Verify_Normal_Flow">
+          <assertion>
+            <comparison operand1="PRG_HTST_Main.HTST.FlowDiverter.Command" operator="=" operand2="0.0"/>
+            <comparison operand1="PRG_HTST_Main.HTST.Alarms.LowTemp" operator="=" operand2="FALSE"/>
+          </assertion>
+        </step>
+      </steps>
+    </testCase>
+    <testCase name="TC_Emergency_Stop">
+      <description>Test emergency stop functionality</description>
+      <steps>
+        <step name="Initialize">
+          <action>
+            <assignment variable="PRG_HTST_Main.HTST.State" value="STATE_PRODUCTION"/>
+            <assignment variable="PRG_HTST_Main.CmdEmergencyStop" value="FALSE"/>
+          </action>
+        </step>
+        <step name="Activate_Emergency">
+          <action>
+            <assignment variable="PRG_HTST_Main.CmdEmergencyStop" value="TRUE"/>
+            <call name="PRG_HTST_Main"/>
+          </action>
+        </step>
+        <step name="Verify_Emergency">
+          <assertion>
+            <comparison operand1="PRG_HTST_Main.HTST.State" operator="=" operand2="STATE_EMERGENCY"/>
+            <comparison operand1="PRG_HTST_Main.HTST.Alarms.EmergencyStop" operator="=" operand2="TRUE"/>
+          </assertion>
+        </step>
+      </steps>
+    </testCase>
+  </testSuite>
+  
+  <testSuite name="CIP_Tests">
+    <testCase name="TC_CIP_Sequence">
+      <description>Test basic CIP sequence</description>
+      <steps>
+        <step name="Initialize">
+          <action>
+            <assignment variable="PRG_HTST_CIP.CurrentStep" value="0"/>
+            <assignment variable="PRG_HTST_CIP.CIPActive" value="FALSE"/>
+            <assignment variable="PRG_HTST_CIP.CIPComplete" value="FALSE"/>
+            <assignment variable="PRG_HTST_CIP.HTSTState" value="STATE_CIP"/>
+          </action>
+        </step>
+        <step name="Start_CIP">
+          <action>
+            <assignment variable="PRG_HTST_CIP.CmdStartCIP" value="TRUE"/>
+            <call name="PRG_HTST_CIP"/>
+            <assignment variable="PRG_HTST_CIP.CmdStartCIP" value="FALSE"/>
+          </action>
+        </step>
+        <step name="Verify_CIP_Active">
+          <assertion>
+            <comparison operand1="PRG_HTST_CIP.CIPActive" operator="=" operand2="TRUE"/>
+            <comparison operand1="PRG_HTST_CIP.CurrentStep" operator=">" operand2="0"/>
+          </assertion>
+        </step>
+      </steps>
+    </testCase>
+  </testSuite>
+</testConfiguration> 

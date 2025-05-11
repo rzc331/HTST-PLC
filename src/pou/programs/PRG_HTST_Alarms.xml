@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pou name="PRG_HTST_Alarms" pouType="program">
+  <interface>
+    <inputVars>
+      <variable name="HTST">
+        <type>
+          <derived name="HTST_System_t"/>
+        </type>
+      </variable>
+      <variable name="AcknowledgeAlarms">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+    </inputVars>
+    <outputVars>
+      <variable name="AlarmActive">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="FALSE"/>
+        </initialValue>
+      </variable>
+      <variable name="AlarmCount">
+        <type>
+          <INT/>
+        </type>
+        <initialValue>
+          <simpleValue value="0"/>
+        </initialValue>
+      </variable>
+    </outputVars>
+    <localVars>
+      <variable name="AlarmBuffer">
+        <type>
+          <array>
+            <dimension lower="0" upper="19"/>
+            <baseType>
+              <struct>
+                <variable name="Active">
+                  <type>
+                    <BOOL/>
+                  </type>
+                  <initialValue>
+                    <simpleValue value="FALSE"/>
+                  </initialValue>
+                </variable>
+                <variable name="Acknowledged">
+                  <type>
+                    <BOOL/>
+                  </type>
+                  <initialValue>
+                    <simpleValue value="FALSE"/>
+                  </initialValue>
+                </variable>
+                <variable name="TimeStamp">
+                  <type>
+                    <DATE_AND_TIME/>
+                  </type>
+                </variable>
+                <variable name="AlarmCode">
+                  <type>
+                    <INT/>
+                  </type>
+                  <initialValue>
+                    <simpleValue value="0"/>
+                  </initialValue>
+                </variable>
+                <variable name="Description">
+                  <type>
+                    <string/>
+                  </type>
+                  <initialValue>
+                    <simpleValue value="''"/>
+                  </initialValue>
+                </variable>
+              </struct>
+            </baseType>
+          </array>
+        </type>
+      </variable>
+      <variable name="AlarmDescriptions">
+        <type>
+          <array>
+            <dimension lower="1" upper="10"/>
+            <baseType>
+              <string/>
+            </baseType>
+          </array>
+        </type>
+      </variable>
+      <variable name="i">
+        <type>
+          <INT/>
+        </type>
+        <initialValue>
+          <simpleValue value="0"/>
+        </initialValue>
+      </variable>
+      <variable name="InitialRun">
+        <type>
+          <BOOL/>
+        </type>
+        <initialValue>
+          <simpleValue value="TRUE"/>
+        </initialValue>
+      </variable>
+    </localVars>
+  </interface>
+  <body>
+    <ST>
+      <externalText>
+        <file>../st/programs/PRG_HTST_Alarms.st</file>
+      </externalText>
+    </ST>
+  </body>
+</pou> 

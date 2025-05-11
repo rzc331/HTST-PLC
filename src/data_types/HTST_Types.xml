@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataTypes>
+  <!-- Temperature sensor data type -->
+  <dataType name="TemperatureSensor_t">
+    <baseType>
+      <struct>
+        <variable name="Value">
+          <type>
+            <REAL/>
+          </type>
+          <initialValue>
+            <simpleValue value="0.0"/>
+          </initialValue>
+        </variable>
+        <variable name="Units">
+          <type>
+            <string/>
+          </type>
+          <initialValue>
+            <simpleValue value="'Celsius'"/>
+          </initialValue>
+        </variable>
+        <variable name="Status">
+          <type>
+            <INT/>
+          </type>
+          <initialValue>
+            <simpleValue value="0"/>
+          </initialValue>
+        </variable>
+        <variable name="Alarm">
+          <type>
+            <BOOL/>
+          </type>
+          <initialValue>
+            <simpleValue value="FALSE"/>
+          </initialValue>
+        </variable>
+        <variable name="HighLimit">
+          <type>
+            <REAL/>
+          </type>
+          <initialValue>
+            <simpleValue value="100.0"/>
+          </initialValue>
+        </variable>
+        <variable name="LowLimit">
+          <type>
+            <REAL/>
+          </type>
+          <initialValue>
+            <simpleValue value="0.0"/>
+          </initialValue>
+        </variable>
+      </struct>
+    </baseType>
+  </dataType>
+  
+  <!-- Flow meter data type -->
+  <dataType name="FlowMeter_t">
+    <baseType>
+      <struct>
+        <variable name="FlowRate">
+          <type>
+            <REAL/>
+          </type>
+          <initialValue>
+            <simpleValue value="0.0"/>
+          </initialValue>
+        </variable>
+        <variable name="Units">
+          <type>
+            <string/>
+          </type>
+          <initialValue>
+            <simpleValue value="'L/min'"/>
+          </initialValue>
+        </variable>
+        <variable name="TotalFlow">
+          <type>
+            <REAL/>
+          </type>
+          <initialValue>
+            <simpleValue value="0.0"/>
+          </initialValue>
+        </variable>
+        <variable name="Status">
+          <type>
+            <INT/>
+          </type>
+          <initialValue>
+            <simpleValue value="0"/>
+          </initialValue>
+        </variable>
+        <variable name="Alarm">
+          <type>
+            <BOOL/>
+          </type>
+          <initialValue>
+            <simpleValue value="FALSE"/>
+          </initialValue>
+        </variable>
+      </struct>
+    </baseType>
+  </dataType>
+
+  <!-- Valve data type -->
+  <dataType name="Valve_t">
+    <baseType>
+      <struct>
+        <variable name="Position">
+          <type>
+            <REAL/>
+          </type>
+          <initialValue>
+            <simpleValue value="0.0"/>
+          </initialValue>
+        </variable>
+        <variable name="Command">
+          <type>
+            <REAL/>
+          </type>
+          <initialValue>
+            <simpleValue value="0.0"/>
+          </initialValue>
+        </variable>
+        <variable name="IsOpen">
+          <type>
+            <BOOL/>
+          </type>
+          <initialValue>
+            <simpleValue value="FALSE"/>
+          </initialValue>
+        </variable>
+        <variable name="IsClosed">
+          <type>
+            <BOOL/>
+          </type>
+          <initialValue>
+            <simpleValue value="TRUE"/>
+          </initialValue>
+        </variable>
+        <variable name="Fault">
+          <type>
+            <BOOL/>
+          </type>
+          <initialValue>
+            <simpleValue value="FALSE"/>
+          </initialValue>
+        </variable>
+      </struct>
+    </baseType>
+  </dataType>
+
+  <!-- Process state enumeration -->
+  <dataType name="ProcessState_t">
+    <baseType>
+      <enum>
+        <values>
+          <value name="STATE_IDLE" value="0"/>
+          <value name="STATE_STARTUP" value="1"/>
+          <value name="STATE_PREHEATING" value="2"/>
+          <value name="STATE_PRODUCTION" value="3"/>
+          <value name="STATE_CIP" value="4"/>
+          <value name="STATE_SHUTDOWN" value="5"/>
+          <value name="STATE_EMERGENCY" value="6"/>
+          <value name="STATE_FAULT" value="7"/>
+        </values>
+      </enum>
+    </baseType>
+  </dataType>
+  
+  <!-- HTST system data type -->
+  <dataType name="HTST_System_t">
+    <baseType>
+      <struct>
+        <variable name="State">
+          <type>
+            <derived name="ProcessState_t"/>
+          </type>
+          <initialValue>
+            <simpleValue value="STATE_IDLE"/>
+          </initialValue>
+        </variable>
+        <variable name="RawTank">
+          <type>
+            <struct>
+              <variable name="Level">
+                <type>
+                  <REAL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="0.0"/>
+                </initialValue>
+              </variable>
+              <variable name="Temperature">
+                <type>
+                  <derived name="TemperatureSensor_t"/>
+                </type>
+              </variable>
+            </struct>
+          </type>
+        </variable>
+        <variable name="FeedPump">
+          <type>
+            <struct>
+              <variable name="Speed">
+                <type>
+                  <REAL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="0.0"/>
+                </initialValue>
+              </variable>
+              <variable name="Command">
+                <type>
+                  <REAL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="0.0"/>
+                </initialValue>
+              </variable>
+              <variable name="Running">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+              <variable name="Fault">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+            </struct>
+          </type>
+        </variable>
+        <variable name="HeatExchanger">
+          <type>
+            <struct>
+              <variable name="InletTemp">
+                <type>
+                  <derived name="TemperatureSensor_t"/>
+                </type>
+              </variable>
+              <variable name="OutletTemp">
+                <type>
+                  <derived name="TemperatureSensor_t"/>
+                </type>
+              </variable>
+              <variable name="HotWaterValve">
+                <type>
+                  <derived name="Valve_t"/>
+                </type>
+              </variable>
+            </struct>
+          </type>
+        </variable>
+        <variable name="HoldingTube">
+          <type>
+            <struct>
+              <variable name="EntryTemp">
+                <type>
+                  <derived name="TemperatureSensor_t"/>
+                </type>
+              </variable>
+              <variable name="ExitTemp">
+                <type>
+                  <derived name="TemperatureSensor_t"/>
+                </type>
+              </variable>
+              <variable name="HoldingTime">
+                <type>
+                  <REAL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="0.0"/>
+                </initialValue>
+              </variable>
+            </struct>
+          </type>
+        </variable>
+        <variable name="FlowDiverter">
+          <type>
+            <derived name="Valve_t"/>
+          </type>
+        </variable>
+        <variable name="FlowMeter">
+          <type>
+            <derived name="FlowMeter_t"/>
+          </type>
+        </variable>
+        <variable name="Alarms">
+          <type>
+            <struct>
+              <variable name="HighTemp">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+              <variable name="LowTemp">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+              <variable name="FlowLow">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+              <variable name="PressureLow">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+              <variable name="EmergencyStop">
+                <type>
+                  <BOOL/>
+                </type>
+                <initialValue>
+                  <simpleValue value="FALSE"/>
+                </initialValue>
+              </variable>
+            </struct>
+          </type>
+        </variable>
+      </struct>
+    </baseType>
+  </dataType>
+</dataTypes> 

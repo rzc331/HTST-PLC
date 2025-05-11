@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="HTST Pasteurization Systems" 
+              productName="HTST Pasteurization Controller" 
+              productVersion="1.0" 
+              creationDateTime="2023-08-29T00:00:00"/>
+  <contentHeader name="HTST_Pasteurization" 
+                 modificationDateTime="2023-08-29T00:00:00">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1"/>
+      </fbd>
+      <ld>
+        <scaling x="1" y="1"/>
+      </ld>
+      <sfc>
+        <scaling x="1" y="1"/>
+      </sfc>
+    </coordinateInfo>
+  </contentHeader>
+  <types>
+    <dataTypes/>
+    <pous/>
+  </types>
+  <instances>
+    <configurations/>
+  </instances>
+</project> 
